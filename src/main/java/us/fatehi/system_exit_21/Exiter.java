@@ -4,7 +4,7 @@ public class Exiter {
 
 	public static void main(String[] args) {
 
-		System.err.println(Exiter.class);
+		System.err.printf("NOW RUNNING %s", Exiter.class);
 
 		System.exit(2);
 	}

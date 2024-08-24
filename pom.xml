@@ -7,6 +7,24 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>Test System.exit() in Java 21 versus Java 8</name>
   <build>
+
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>3.1.0</version>
+          <dependencies>
+            <dependency>
+              <groupId>org.apache.ant</groupId>
+              <artifactId>ant</artifactId>
+              <version>1.10.14</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -20,17 +38,28 @@
                 <property name="project.home" location="." />
                 <echo message="Project directory is: ${project.home}" />
 
-                <path id="project.classpath">
+                <!-- CLASSPATH with classes -->
+                <path id="project.classes.classpath">
                   <pathelement location="${project.home}/target/classes" />
                 </path>
 
-                <pathconvert property="project.classpath.string"
-                  refid="project.classpath" />
-                <echo message="Classpath is: ${project.classpath.string}" />
+                <pathconvert property="project.classes.classpath.string"
+                  refid="project.classes.classpath" />
+                <echo message="Classes CLASSPATH is: ${project.classes.classpath.string}" />
 
+				<!-- CLASSPATH with jar -->
+				<path id="project.jar.classpath">
+                  <pathelement path="${project.home}/target/system-exit-21-0.0.1-SNAPSHOT.jar"/>
+                </path>
+
+                <pathconvert property="project.jar.classpath.string"
+                  refid="project.jar.classpath" />
+                <echo message="Jar CLASSPATH is: ${project.jar.classpath.string}" />
+
+				<!-- Run code with System.exit() -->
                 <java classname="us.fatehi.system_exit_21.Exiter"
                   failonerror="true">
-                  <classpath refid="project.classpath" />
+                  <classpath refid="project.jar.classpath" />
                 </java>
 
               </target>
