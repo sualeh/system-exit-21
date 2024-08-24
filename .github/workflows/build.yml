@@ -2,6 +2,7 @@ name: Build Code with `System.exit(...)` in Java 8 and Java 21
 
 on:
   workflow_dispatch:
+  push:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -19,18 +20,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - id: prepare-maven-build
-      name: Prepare Maven build
-      uses: sualeh/prepare-maven-build@v1.4.0
+    - id: checkout-code
+      name: Checkout code
+      uses: actions/checkout@v4
+
+    - id: setup-java
+      name: Set up JDK
+      uses: actions/setup-java@v4
       with:
+        distribution: temurin
         java-version: ${{ matrix.java }}
+        cache: maven
 
     - id: build
-      name: Build to show abrubt failure
+      name: Build to show abrupt failure
       shell: bash
       run: |
         # Build
         mvn \
+          -Dmaven.source.target=${{ matrix.java }} \
+          -Dmaven.compiler.target=${{ matrix.java }} \
           --no-transfer-progress \
           --batch-mode \
           clean verify
