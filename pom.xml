@@ -1,0 +1,46 @@
+<project xmlns="https://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>us.fatehi</groupId>
+  <artifactId>system-exit-21</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Test System.exit() in Java 21 versus Java 8</name>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>run-exiter</id>
+            <phase>verify</phase>
+            <configuration>
+              <target name="run-exiter">
+                <property name="project.home" location="." />
+                <echo message="Project directory is: ${project.home}" />
+
+                <path id="project.classpath">
+                  <pathelement location="${project.home}/target/classes" />
+                </path>
+
+                <pathconvert property="project.classpath.string"
+                  refid="project.classpath" />
+                <echo message="Classpath is: ${project.classpath.string}" />
+
+                <java classname="us.fatehi.system_exit_21.Exiter"
+                  failonerror="true">
+                  <classpath refid="project.classpath" />
+                </java>
+
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
