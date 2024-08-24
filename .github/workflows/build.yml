@@ -1,0 +1,36 @@
+name: Build Code with `System.exit(...)` in Java 8 and Java 21
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: read-all
+
+jobs:
+  build:
+    name: Build
+    strategy:
+      fail-fast: false
+      matrix:
+        java: [8, 21]
+    runs-on: ubuntu-latest
+    steps:
+
+    - id: prepare-maven-build
+      name: Prepare Maven build
+      uses: sualeh/prepare-maven-build@v1.4.0
+      with:
+        java-version: ${{ matrix.java }}
+
+    - id: build
+      name: Build to show abrubt failure
+      shell: bash
+      run: |
+        # Build
+        mvn \
+          --no-transfer-progress \
+          --batch-mode \
+          clean verify

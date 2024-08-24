@@ -5,7 +5,7 @@
   <groupId>us.fatehi</groupId>
   <artifactId>system-exit-21</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Illustrate System.exit() in Java 21 versus Java 8</name>
+  <name>Illustrate differences in `System.exit(...)` in Java 21 versus Java 8</name>
   <build>
 
     <pluginManagement>
