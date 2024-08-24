@@ -5,16 +5,16 @@
   <groupId>us.fatehi</groupId>
   <artifactId>system-exit-21</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Illustrate differences in `System.exit(...)` in Java 21 versus Java 8</name>
+  <name>System Exit 21</name>
+  <description>Illustrate differences in `System.exit(...)` in Java 21 versus Java 8</description>
   <build>
-
     <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.13.0</version>
-        </plugin>	  
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-antrun-plugin</artifactId>
@@ -29,7 +29,6 @@
         </plugin>
       </plugins>
     </pluginManagement>
-
     <plugins>
       <plugin>
         <inherited>true</inherited>
@@ -40,7 +39,7 @@
           <target>8</target>
           <encoding>UTF-8</encoding>
         </configuration>
-      </plugin>	
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
@@ -49,34 +48,14 @@
             <id>run-exiter</id>
             <phase>verify</phase>
             <configuration>
-              <target name="run-exiter">
-                <property name="project.home" location="." />
-                <echo message="Project directory is: ${project.home}" />
-
-                <!-- CLASSPATH with classes -->
-                <path id="project.classes.classpath">
-                  <pathelement location="${project.home}/target/classes" />
-                </path>
-
-                <pathconvert property="project.classes.classpath.string"
-                  refid="project.classes.classpath" />
-                <echo message="Classes CLASSPATH is: ${project.classes.classpath.string}" />
-
-				<!-- CLASSPATH with jar -->
-				<path id="project.jar.classpath">
-                  <pathelement path="${project.home}/target/system-exit-21-0.0.1-SNAPSHOT.jar"/>
-                </path>
-
-                <pathconvert property="project.jar.classpath.string"
-                  refid="project.jar.classpath" />
-                <echo message="Jar CLASSPATH is: ${project.jar.classpath.string}" />
-
-				<!-- Run code with System.exit() -->
+              <target name="run-exiter-in-ant">
                 <java classname="us.fatehi.system_exit_21.Exiter"
                   failonerror="true">
-                  <classpath refid="project.jar.classpath" />
+                  <path id="project.jar.classpath">
+                    <pathelement
+                      path="${project.home}/target/system-exit-21-0.0.1-SNAPSHOT.jar"/>
+                  </path>
                 </java>
-
               </target>
             </configuration>
             <goals>
