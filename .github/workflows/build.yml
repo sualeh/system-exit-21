@@ -38,8 +38,6 @@ jobs:
       run: |
         # Build
         mvn \
-          -Dmaven.source.target=${{ matrix.java }} \
-          -Dmaven.compiler.target=${{ matrix.java }} \
           --no-transfer-progress \
           --batch-mode \
           clean verify
