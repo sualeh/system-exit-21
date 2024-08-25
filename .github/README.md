@@ -7,6 +7,7 @@ In Java 8, it is possible (easy enough) to substitute a custom security manager 
 Consider this use case:
 
 ```mermaid
+%%{init: {"flowchart": {"htmlLabels": false}} }%%
 flowchart LR
     A[fa:fa-mobile-screen-button **Web Application**
       Needs to keep running]
