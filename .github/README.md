@@ -7,15 +7,14 @@ In Java 8, it is possible (easy enough) to substitute a custom security manager 
 Consider this use case:
 
 ```mermaid
-%%{init: {"flowchart": {"htmlLabels": false}} }%%
 flowchart LR
-    A[fa:fa-mobile-screen-button **Web Application**
+    A[Web Application
       Needs to keep running]
-    B(fa:fa-gift **Library 1**
+    B(Library 1
       Uses custom
       security manager
       to prevent System exit)
-    C(fa:fa-eject **Library 2**
+    C(Library 2
       Calls System.exit)
     A -->|Calls| B
     B -->|Calls| C
