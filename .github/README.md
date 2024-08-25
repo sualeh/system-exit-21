@@ -1,3 +1,5 @@
+> **:star: Star it :arrow_heading_up: if you love it!**
+
 # System Exit 21
 
 > Illustrate differences in `System.exit(...)` in Java 21 versus Java 8
@@ -20,7 +22,9 @@ flowchart LR
     B -->|Calls| C
 ```
 
-If "Library 1" supports Java 21, and does not substitute a custom security manager, it can cause the "Web application" to terminate without warning.
+If "Library 1" starts supporting Java 21, and so does not substitute a custom security manager, it can cause the "Web application" to terminate without warning.
+
+For example, look at [this note from Apache Ant](https://github.com/apache/ant/commit/689b6ea90ee1fbad580a437137d80609c9336f12) which says a custom security manager will be substituted if running on versions of Java lower than Java 18, but not on Java 18 and above. Other libraries are taking similar approaches.
 
 This project boils the problem down to essentials. We have a simple Java class that calls `System.exit(...)`, which in turn is invoked by Apache Ant. On Java 8, Apache Ant intercepts `System.exit(...)` and the build completes. On Java 21 though, [Apache Ant no longer intercepts `System.exit(...)`](https://github.com/apache/ant/commit/689b6ea90ee1fbad580a437137d80609c9336f12), resulting in a terminated build with no logs or exceptions.
 
